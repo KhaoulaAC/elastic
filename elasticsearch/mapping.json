@@ -1,0 +1,165 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "index": {
+      "max_result_window": 50000
+    },
+    "analysis": {
+      "analyzer": {
+        "log_analyzer": {
+          "type": "standard",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "message": {
+        "type": "text",
+        "analyzer": "log_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "log_type": {
+        "type": "keyword"
+      },
+      "file_date": {
+        "type": "keyword"
+      },
+      "step_status": {
+        "type": "keyword"
+      },
+      "step_name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "results_code": {
+        "type": "integer"
+      },
+      "step_elapsed_secs": {
+        "type": "integer"
+      },
+      "step_at_ts": {
+        "type": "date"
+      },
+      "results_text": {
+        "type": "keyword"
+      },
+      "results_count": {
+        "type": "integer"
+      },
+      "exit_code": {
+        "type": "integer"
+      },
+      "line_time": {
+        "type": "keyword"
+      },
+      "loglevel": {
+        "type": "keyword"
+      },
+      "transfer_rate": {
+        "type": "float"
+      },
+      "transfer_unit": {
+        "type": "keyword"
+      },
+      "downloaded_file": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "bytes_downloaded": {
+        "type": "long"
+      },
+      "total_bytes": {
+        "type": "long"
+      },
+      "buildername": {
+        "type": "keyword"
+      },
+      "slave": {
+        "type": "keyword"
+      },
+      "platform": {
+        "type": "keyword"
+      },
+      "branch": {
+        "type": "keyword"
+      },
+      "revision": {
+        "type": "keyword"
+      },
+      "buildid": {
+        "type": "keyword"
+      },
+      "elapsedtime": {
+        "type": "float"
+      },
+      "event": {
+        "properties": {
+          "dataset": {
+            "type": "keyword"
+          },
+          "module": {
+            "type": "keyword"
+          },
+          "category": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "log": {
+        "properties": {
+          "file": {
+            "properties": {
+              "path": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "host": {
+        "properties": {
+          "name": {
+            "type": "keyword"
+          }
+        }
+      },
+      "agent": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "version": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

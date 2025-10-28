@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   elasticsearch:
-    # --- MODIFICATION ICI ---
     image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2 
-    # ------------------------
     container_name: elasticsearch
     restart: always
     environment:
@@ -15,6 +13,7 @@ services:
       - '9200:9200'
       - '9300:9300'
     networks: [elk]
+    
   logstash:
     image: logstash:7.16.2
     container_name: logstash
@@ -29,8 +28,6 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx256m"
     networks: [elk]
-
-
 
   kibana:
     image: kibana:7.16.2
@@ -51,9 +48,8 @@ services:
     depends_on: [logstash]
     volumes:
     - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-    - "C:/Users/bouta/elastic/logs:/logs:ro"
+    - ./logs-realtime:/logs:ro
     networks: [elk]
-    # Ajoute cette ligne pour forcer l’option même si le YAML n’est pas pris en compte:
     command: ["-e", "-strict.perms=false"]
 
 volumes:
@@ -61,4 +57,3 @@ volumes:
 
 networks:
   elk: {}
-
